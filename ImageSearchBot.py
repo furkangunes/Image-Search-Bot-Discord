@@ -18,7 +18,8 @@ class ImageSearchBot(discord.Client):
 
 			await channel.send(file = discord.File(arr, filename=f"requested_image.{extension}"))
 		
-		except:
+		except Exception as e:
+			print(e)
 			await channel.send("An error occured during process\nLogging error to be fixed later")
 
 		finally:
