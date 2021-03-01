@@ -1,1 +1,1 @@
-worker: python3 ImageSearchBot.py
+worker: python ImageSearchBot.py
