@@ -10,7 +10,8 @@ class ImageSearchBot(discord.Client):
 	async def upload_query(self, channel, query):
 		arr = BytesIO()
 
-		while i := 1 < 4:
+		i = 1
+		while i < 4:
 			try:
 				extension, data = get_first_image(await get_page(get_query_link(query)))
 				
@@ -23,6 +24,7 @@ class ImageSearchBot(discord.Client):
 			except Exception as e:
 				print(f'Exception in upload query "{query}":', e)
 				await channel.send(f"Failed. Trying again ({i})")
+				i += 1
 
 		arr.close()
 		
