@@ -1,7 +1,6 @@
 from requests_html import AsyncHTMLSession
 from bs4 import BeautifulSoup
 from base64 import b64decode
-from os.path import basename
 
 def get_query_link(query):
 	return "https://www.google.com/search?q=" + "+".join(filter(lambda char: char != " ", query.split())) + "&source=lnms&tbm=isch"

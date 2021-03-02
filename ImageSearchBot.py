@@ -10,21 +10,17 @@ class ImageSearchBot(discord.Client):
 	async def upload_query(self, channel, query):
 		arr = BytesIO()
 
-		i = 1
-		while i < 4:
-			try:
-				extension, data = get_first_image(await get_page(get_query_link(query)))
+		try:
+			extension, data = get_first_image(await get_page(get_query_link(query)))
 				
-				arr.write(data)
-				arr.seek(0)
+			arr.write(data)
+			arr.seek(0)
 
-				await channel.send(file = discord.File(arr, filename=f"requested_image.{extension}"))
-				break
+			await channel.send(file = discord.File(arr, filename=f"requested_image.{extension}"))
 			
-			except Exception as e:
-				print(f'Exception in upload query "{query}":', e)
-				await channel.send(f"Failed. Trying again ({i})")
-				i += 1
+		except Exception as e:
+			print(f'Exception in upload query "{query}":', e)
+			await channel.send(f"I have failed to get your image :(\nLogging the error")
 
 		arr.close()
 		
@@ -63,7 +59,7 @@ class ImageSearchBot(discord.Client):
 					await message.channel.send(f'If you want to search for an image, mention me first, then type your query\n"@{self.user.name} <your_query>"')
 				return
 
-			query = message.content[len(self.user.name) + 5 : ] # len + 5 for <, >, @, ! and space chars
+			query = message.content[len(str(self.user.id)) + 5 : ] # len + 5 for <, >, @, ! and space chars
 
 		await self.upload_query(message.channel, query)
 
